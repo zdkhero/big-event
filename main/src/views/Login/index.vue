@@ -81,6 +81,8 @@ export default {
       this.$message.success(res.message)
       // 4. 把 token 记录到 vuex 中
       this.$store.commit('setToken', res.token)
+      // 5. 登录成功之后，跳转到后台主页
+      this.$router.push('/')
     }
   }
 }
