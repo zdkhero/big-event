@@ -9,7 +9,12 @@
       <el-form :model="loginForm" :rules="loginRules" ref="loginRef">
         <!-- 用户名 -->
         <el-form-item prop="username">
-          <el-input v-model="loginForm.username" placeholder="请输入用户名" maxlength="10" minlength="1"></el-input>
+          <el-input
+            v-model="loginForm.username"
+            placeholder="请输入用户名"
+            maxlength="10"
+            minlength="1"
+          ></el-input>
         </el-form-item>
         <!-- 密码 -->
         <el-form-item prop="password">
@@ -23,7 +28,9 @@
           ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" class="btn-login">登录</el-button>
+          <el-button type="primary" class="btn-login" @click="login"
+            >登录</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -31,6 +38,8 @@
 </template>
 
 <script>
+import { login } from '@/api/login.js'
+
 export default {
   name: 'Login',
   data () {
@@ -38,19 +47,40 @@ export default {
       // 登录表单的数据对象
       loginForm: {
         username: 'darkyase',
-        password: 'darkyase'
+        password: '123456'
       },
       // 登录表单的验证规则对象
       loginRules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
-          { pattern: /^[a-zA-Z0-9]{1,10}$/, message: '用户名必须是1-10的字母数字', trigger: 'blur' }
+          {
+            pattern: /^[a-zA-Z0-9]{1,10}$/,
+            message: '用户名必须是1-10的字母数字',
+            trigger: 'blur'
+          }
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
-          { pattern: /^\S{6,15}$/, message: '密码必须是6-15的非空字符', trigger: 'blur' }
+          {
+            pattern: /^\S{6,15}$/,
+            message: '密码必须是6-15的非空字符',
+            trigger: 'blur'
+          }
         ]
       }
+    }
+  },
+  methods: {
+    // 发起登录请求
+    async login () {
+      // 1. 发起登录的请求
+      const { data: res } = await login(this.loginForm)
+      // 2. 登录失败
+      if (res.code !== 0) return this.$message.error(res.message)
+      // 3. 登录成功
+      this.$message.success(res.message)
+      // 4. 把 token 记录到 vuex 中
+      this.$store.commit('setToken', res.token)
     }
   }
 }
@@ -58,7 +88,7 @@ export default {
 
 <style lang="scss" scoped>
 .login-container {
-  background: url('~@/assets/images/login_bg.jpg') center;
+  background: url("~@/assets/images/login_bg.jpg") center;
   background-size: cover;
   height: 100%;
 
@@ -76,7 +106,7 @@ export default {
 
     .title-box {
       height: 60px;
-      background: url('~@/assets/images/login_title.png') center no-repeat;
+      background: url("~@/assets/images/login_title.png") center no-repeat;
     }
 
     .btn-login {
