@@ -58,7 +58,7 @@ export default {
     Menus
   },
   created () {
-    this.$store.dispatch('getUserInfo')
+    // this.$store.dispatch('getUserInfo')
   },
   methods: {
     // 退出登录
