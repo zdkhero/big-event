@@ -5,7 +5,7 @@ import store from '@/store'
 const whiteList = ['/login']
 
 // 导航前置守卫
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   // 获取 token
   const { token } = store.state
 
@@ -13,7 +13,7 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/login') {
       next('/')
     } else {
-      store.dispatch('getUserInfo')
+      await store.dispatch('getUserInfo')
       next()
     }
   } else {

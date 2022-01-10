@@ -1,6 +1,7 @@
 // 专门用来配置 axios 的模块
 import axios from 'axios'
 import store from '@/store'
+import router from '@/router'
 
 const instance = axios.create({
   baseURL: 'http://www.liulongbin.top:3008',
@@ -25,7 +26,14 @@ instance.interceptors.response.use(function (response) {
   // 对响应数据做点什么
   return response
 }, function (error) {
-  // 超出 2xx 范围的状态码都会触发该函数。
+  // 超出 2xx 范围的状态码都会触发该函数
+  if (error.response.status === 401) {
+    // 无效的 token
+    // 把 Vuex 中的 token 重置为空，并跳转到登录页面
+    store.commit('setToken', '')
+    router.push('/login')
+  }
+
   // 对响应错误做点什么
   return Promise.reject(error)
 })
