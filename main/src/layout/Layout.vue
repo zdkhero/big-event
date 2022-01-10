@@ -39,7 +39,8 @@
       <el-container>
         <!-- 页面主体区域 -->
         <el-main>
-          布局容器
+          <!-- 二级路由出口 -->
+          <router-view></router-view>
         </el-main>
         <!-- 底部 footer 区域 -->
         <el-footer>© www.itheima.com - 黑马程序员</el-footer>
