@@ -34,6 +34,7 @@
           <img src="@/assets/logo.png" alt="" v-else />
           <span>欢迎 {{ userInfo.nickname || userInfo.username }}</span>
         </div>
+        <Menus />
       </el-aside>
       <el-container>
         <!-- 页面主体区域 -->
@@ -48,9 +49,14 @@
 </template>
 
 <script>
+import Menus from './menu.vue'
+
 import { mapState } from 'vuex'
 export default {
   name: 'Layout',
+  components: {
+    Menus
+  },
   created () {
     this.$store.dispatch('getUserInfo')
   },

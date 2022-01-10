@@ -10,3 +10,14 @@ export const getUserInfo = () => {
     method: 'GET'
   })
 }
+
+/**
+ * 获取左侧菜单分类
+ * @returns Promise
+ */
+export const getMenus = () => {
+  return request({
+    url: '/my/menus',
+    method: 'GET'
+  })
+}
