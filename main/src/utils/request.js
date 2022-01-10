@@ -1,5 +1,6 @@
 // 专门用来配置 axios 的模块
 import axios from 'axios'
+import store from '@/store'
 
 const instance = axios.create({
   baseURL: 'http://www.liulongbin.top:3008',
@@ -8,7 +9,10 @@ const instance = axios.create({
 
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
-  // 在发送请求之前做些什么
+  // 设置请求头
+  if (config.url.startsWith('/my')) {
+    config.headers.Authorization = store.state.token
+  }
   return config
 }, function (error) {
   // 对请求错误做些什么
