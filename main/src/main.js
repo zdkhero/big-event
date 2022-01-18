@@ -13,6 +13,11 @@ import './assets/global.scss'
 // 导入权限拦截文件
 import './permission.js'
 
+// 导入 qiankun 配置文件
+import startQiankun from './registerApp'
+// 启动 qiankun
+startQiankun()
+
 // 将 Element 注册为插件
 Vue.use(ElementUI)
 
