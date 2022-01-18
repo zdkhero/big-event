@@ -39,8 +39,11 @@
       <el-container>
         <!-- 页面主体区域 -->
         <el-main>
-          <!-- 二级路由出口 -->
+          <!-- 主应用渲染区，用于挂载主应用路由触发的组件 -->
           <router-view></router-view>
+
+          <!-- 子应用渲染区，用于挂载子应用节点 -->
+          <div id="subapp-container"></div>
         </el-main>
         <!-- 底部 footer 区域 -->
         <el-footer>© www.itheima.com - 黑马程序员</el-footer>
