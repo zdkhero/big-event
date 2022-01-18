@@ -15,6 +15,10 @@ import './permission.js'
 
 // 导入 qiankun 配置文件
 import startQiankun from './registerApp'
+
+// 导入应用数据
+import './store/initState'
+
 // 启动 qiankun
 startQiankun()
 

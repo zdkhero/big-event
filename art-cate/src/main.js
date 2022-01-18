@@ -32,7 +32,11 @@ export async function bootstrap () {
   console.log('[vue] vue app bootstraped')
 }
 export async function mount (props) {
-  console.log('[vue] props from main framework', props)
+  // 通过 props 调用 initGlobalState 返回的返回通信方法
+  props.onGlobalStateChange((state, prev) => {
+    console.log(state)
+    store.commit('setToken', state)
+  }, true)
   render(props)
 }
 export async function unmount () {
